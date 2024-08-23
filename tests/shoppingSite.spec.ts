@@ -1,14 +1,11 @@
 import { test, expect } from '@playwright/test'
-import { execPath } from 'process'
+import { ShoppingSite } from '../Pages/ShoppingSite'
 
 test.describe('Ecommerce Site', () => {
-  const baseURL = 'https://react-shopping-cart-67954.firebaseapp.com/'
-
+  
   test('checking large stock amount / another way', async ({ page }) => {
-    await page.goto(baseURL)
-    const sizes = page.getByText('L', { exact: true })
-    await sizes.click()
-    await page.waitForLoadState('networkidle') // waiting for the network to be idle
+    const shoppingSite = new ShoppingSite(page)
+    await shoppingSite.SelectSize('L')
     await page.waitForSelector('text=Add to cart', { state: 'visible' })
     let itemList = page.getByRole('button', { name: 'Add to cart' })
 
@@ -30,10 +27,10 @@ test.describe('Ecommerce Site', () => {
   })
 
   test('Remove item from cart', async ({ page }) => {
-    await page.goto(baseURL)
-    await page.getByRole('button', { name: 'Add to cart' }).first().click()
-    await page.getByRole('button', { name: 'remove product from cart' }).click()
-    const subtotal = await page.getByText('$ 0.00').innerText()
+    const shoppingSite = new ShoppingSite(page)
+    await shoppingSite.clickAddToCart(1)
+    await shoppingSite.ClickRemoveItem(0)
+    const subtotal = await shoppingSite.getCartAmount()
     expect(subtotal).toBe('$ 0.00')
   })
 
@@ -75,7 +72,14 @@ test.describe('Ecommerce Site', () => {
       await items.nth(i).click()
       await page.getByRole('button', { name: 'X' }).click()
     }
+
     await page.getByRole('button', { name: '3' }).click()
     await page.getByRole('button', { name: 'Checkout' }).click()
+
+    const checkoutText = await page
+      .getByText('Checkout - Subtotal: $ 50.05')
+      .innerText()
+
+    expect(checkoutText).toBe('Checkout - Subtotal: $ 50.05')
   })
 })
