@@ -1,13 +1,11 @@
 import { test, expect } from '@playwright/test'
 import { ShoppingSite } from '../Pages/ShoppingSite'
 
-
 test.describe('Ecommerce Site', () => {
-  
   test('checking large stock amount / another way', async ({ page }) => {
     const shoppingSite = new ShoppingSite(page)
     await shoppingSite.selectSize('L')
-    
+
     expect(await shoppingSite.getItemsCount()).toBe(10)
   })
 
@@ -15,7 +13,7 @@ test.describe('Ecommerce Site', () => {
     const shoppingSite = new ShoppingSite(page)
     await shoppingSite.addMultipleItems(6)
     await shoppingSite.clickOpenCheckout()
-    
+
     expect(await shoppingSite.countItemsInCart()).toBe(6)
   })
 
@@ -31,7 +29,7 @@ test.describe('Ecommerce Site', () => {
     const shoppingSite = new ShoppingSite(page)
     await shoppingSite.addMultipleItems(3)
     await shoppingSite.clickOpenCheckout()
-    
+
     expect(await shoppingSite.getCartAmount()).toBe('$ 50.05')
   })
 
@@ -39,10 +37,10 @@ test.describe('Ecommerce Site', () => {
     const shoppingSite = new ShoppingSite(page)
     await shoppingSite.addMultipleItems(3)
     await shoppingSite.clickOpenCheckout()
-    
+
     expect(await shoppingSite.getCartAmount()).toBe('$ 50.05')
     await shoppingSite.removeItemButton.first().click()
-    
+
     expect(await shoppingSite.getCartAmount()).toBe('$ 39.15')
   })
 
@@ -50,15 +48,21 @@ test.describe('Ecommerce Site', () => {
     const shoppingSite = new ShoppingSite(page)
     await shoppingSite.addMultipleItems(3)
     await shoppingSite.clickOpenCheckout()
+    console.log('Clicking checkout button...')
+    await page.waitForTimeout(500)
     await shoppingSite.clickCheckout()
-    
 
     
-    // I still cant get the popup to work for some reason
-    const checkoutText = await page
-      .getByText('Checkout - Subtotal: $ 50.05')
-      .innerText()
+    page.on('dialog', async (dialog) => {
+      console.log('Dialog appeared with message:', dialog.message())
 
-    expect(checkoutText).toBe('Checkout - Subtotal: $ 50.05')
+      
+      expect(dialog.message()).toBe('Checkout - Subtotal: $ 50.05')
+
+      
+      await dialog.accept()
+    })
+
+  
   })
 })

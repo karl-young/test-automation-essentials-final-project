@@ -51,7 +51,7 @@ export class ShoppingSite {
   }
 
   async addMultipleItems(count: number) {
-    const items = this.getItemsCount()
+    const items = await this.getItemsCount()
     for (let i = 0; i < Math.min(count); i++) {
       await this.clickAddToCart(i)
       await this.clickCloseCheckout()
@@ -67,6 +67,7 @@ export class ShoppingSite {
   }
 
   async clickCheckout() {
+    await this.page.waitForLoadState('networkidle')
     await this.checkoutButton.click()
   }
 }
