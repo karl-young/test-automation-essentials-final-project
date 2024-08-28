@@ -7,6 +7,7 @@ export class ShoppingSite {
   readonly cartAmount: Locator
   readonly removeItemButton: Locator
   readonly sizeLocator: Locator
+  readonly stockLevel: Locator
   readonly openCheckout: Locator
   readonly checkoutButton: Locator
 
@@ -17,17 +18,37 @@ export class ShoppingSite {
     this.cartAmount = page.locator(`.sc-1h98xa9-9`)
     this.openCheckout = page.locator('.sc-1h98xa9-2')
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' })
+    this.sizeLocator = (size: string) =>
+      page.getByText(`${size}`, { exact: true })
+    this.stockLevel = page.locator(`.sc-ebmerl-4 > p:nth-child(1)`)
     this.removeItemButton = page.getByRole('button', {
       name: 'remove product from cart',
     })
+  }
 
-    page.goto(baseURL)
+  async navigateToSite() {
+    await this.page.goto(baseURL)
+    await this.page.waitForTimeout(1000)
   }
 
   async selectSize(size: string) {
-    const sizeLocator = this.page.locator(`//label[span[text()="${size}"]]`)
+    await this.page.waitForSelector(`text=${size}`, { state: 'visible' })
+
+    await this.page.waitForTimeout(500)
+
+    const sizeLocator = this.sizeLocator(size)
+
     await sizeLocator.click()
+
+    await this.page.waitForTimeout(500)
+
+    await sizeLocator.click()
+  }
+
+  async getStockLevel() {
+    const stockText = (await this.stockLevel.textContent()) || '0'
     await this.page.waitForLoadState('networkidle')
+    return parseInt(stockText, 10)
   }
 
   async clickCloseCheckout() {
