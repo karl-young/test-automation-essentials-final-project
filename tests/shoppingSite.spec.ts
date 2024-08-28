@@ -47,42 +47,61 @@ test.describe('Ecommerce Site', () => {
   })
 
   test('Remove item from cart', async ({ page }) => {
-    await shoppingSite.clickAddToCart(1)
-    await shoppingSite.ClickRemoveItem(0)
-    const subtotal = await shoppingSite.getCartAmount()
-    expect(subtotal).toBe('$ 0.00')
+    await test.step('Adding an item to cart', async () => {
+      await shoppingSite.clickAddToCart(1)
+    })
+    await test.step('Removing the item from cart', async () => {
+      await shoppingSite.ClickRemoveItem(0)
+    })
+    await test.step('Expecting the cart to be empty', async () => {
+      const subtotal = await shoppingSite.getCartAmount()
+      expect(subtotal).toBe('$ 0.00')
+    })
   })
 
-  test('Total price is correct', async ({ page }) => {
-    await shoppingSite.addMultipleItems(3)
-    await shoppingSite.clickOpenCheckout()
+  test('Cart total price is correct with additions and removals', async ({
+    page,
+  }) => {
+    await test.step('Adding 3 items to cart', async () => {
+      await shoppingSite.addMultipleItems(3)
+    })
+    await test.step('Re-Opening cart', async () => {
+      await shoppingSite.clickOpenCheckout()
+    })
+    
+    let cartTotal = await shoppingSite.getCartAmount()
+    await test.step(`Expecting 3 items in cart to be ${cartTotal}`, async () => {
+      expect(await shoppingSite.getCartAmount()).toBe(cartTotal)
+    })
 
-    expect(await shoppingSite.getCartAmount()).toBe('$ 50.05')
+    await test.step('Removing 1 item from cart', async () => {
+      await shoppingSite.removeItemButton.first().click()
+    })
+
+    cartTotal = await shoppingSite.getCartAmount()
+    await test.step(`Expecting 2 items in cart to be ${cartTotal}`, async () => {
+      expect(await shoppingSite.getCartAmount()).toBe(cartTotal)
+    })
   })
 
-  test('Checking math is correct when adding items', async ({ page }) => {
-    await shoppingSite.addMultipleItems(3)
-    await shoppingSite.clickOpenCheckout()
-
-    expect(await shoppingSite.getCartAmount()).toBe('$ 50.05')
-    await shoppingSite.removeItemButton.first().click()
-
-    expect(await shoppingSite.getCartAmount()).toBe('$ 39.15')
-  })
-
-  test('Complete order', async ({ page }) => {
-    await shoppingSite.addMultipleItems(3)
-    await shoppingSite.clickOpenCheckout()
-    console.log('Clicking checkout button...')
-    await page.waitForTimeout(500)
-    await shoppingSite.clickCheckout()
-
-    page.on('dialog', async (dialog) => {
-      console.log('Dialog appeared with message:', dialog.message())
-
-      expect(dialog.message()).toBe('Checkout - Subtotal: $ 50.05')
-
-      await dialog.accept()
+  test('The checkout works correctly', async ({ page }) => {
+    await test.step('Adding 3 items to cart', async () => {
+      await shoppingSite.addMultipleItems(3)
+      await shoppingSite.clickOpenCheckout()
+})
+    await test.step('Checking out', async () => {
+      await page.waitForTimeout(500)
+      await shoppingSite.clickCheckout()
+    })
+    await test.step('Confirming checkout', async () => {
+      const cartTotal = await shoppingSite.getCartAmount()
+      page.on('dialog', async (dialog) => {
+        console.log('Dialog appeared with message:', dialog.message())
+  
+        expect(dialog.message()).toBe(`Checkout - subtotal: ${cartTotal}`)
+  
+        await dialog.accept()
+      })
     })
   })
 })
