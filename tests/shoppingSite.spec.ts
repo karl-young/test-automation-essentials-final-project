@@ -6,7 +6,6 @@ test.describe('Ecommerce Site', () => {
 
   test.beforeEach(async ({ page }) => {
     shoppingSite = new ShoppingSite(page)
-
     await shoppingSite.navigateToSite()
   })
 
@@ -68,7 +67,7 @@ test.describe('Ecommerce Site', () => {
     await test.step('Re-Opening cart', async () => {
       await shoppingSite.clickOpenCheckout()
     })
-    
+
     let cartTotal = await shoppingSite.getCartAmount()
     await test.step(`Expecting 3 items in cart to be ${cartTotal}`, async () => {
       expect(await shoppingSite.getCartAmount()).toBe(cartTotal)
@@ -88,7 +87,7 @@ test.describe('Ecommerce Site', () => {
     await test.step('Adding 3 items to cart', async () => {
       await shoppingSite.addMultipleItems(3)
       await shoppingSite.clickOpenCheckout()
-})
+    })
     await test.step('Checking out', async () => {
       await page.waitForTimeout(500)
       await shoppingSite.clickCheckout()
@@ -97,9 +96,9 @@ test.describe('Ecommerce Site', () => {
       const cartTotal = await shoppingSite.getCartAmount()
       page.on('dialog', async (dialog) => {
         console.log('Dialog appeared with message:', dialog.message())
-  
+
         expect(dialog.message()).toBe(`Checkout - subtotal: ${cartTotal}`)
-  
+
         await dialog.accept()
       })
     })

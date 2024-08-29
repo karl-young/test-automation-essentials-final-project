@@ -6,7 +6,7 @@ export class ShoppingSite {
   readonly closeCheckout: Locator
   readonly cartAmount: Locator
   readonly removeItemButton: Locator
-  readonly sizeLocator: Locator
+  readonly sizeLocator: (size: string) => Locator
   readonly stockLevel: Locator
   readonly openCheckout: Locator
   readonly checkoutButton: Locator
