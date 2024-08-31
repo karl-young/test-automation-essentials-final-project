@@ -9,7 +9,7 @@ test.describe('Ecommerce Site', () => {
     await shoppingSite.navigateToSite()
   })
 
-  // I need to make this test nicer looking and more readable
+  
   test('Checking specific stock levels for all sizes', async ({ page }) => {
     const expectedStockLevels = {
       XS: 1,
@@ -98,8 +98,11 @@ test.describe('Ecommerce Site', () => {
         console.log('Dialog appeared with message:', dialog.message())
 
         expect(dialog.message()).toBe(`Checkout - subtotal: ${cartTotal}`)
+        await page.waitForTimeout(1000)
 
         await dialog.accept()
+        
+        await dialog.dismiss();
       })
     })
   })
