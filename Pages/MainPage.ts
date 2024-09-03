@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test'
 const baseURL = 'https://react-shopping-cart-67954.firebaseapp.com/'
-export class ShoppingSite {
+export class ShoppingSitePage {
   readonly page: Page
   readonly addToCart: Locator
   readonly closeCheckout: Locator
@@ -83,7 +83,7 @@ export class ShoppingSite {
     await this.openCheckout.click()
   }
 
-  async ClickRemoveItem(index: number) {
+  async clickRemoveItem(index: number) {
     await this.removeItemButton.nth(index).click()
   }
 

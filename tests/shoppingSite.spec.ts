@@ -1,15 +1,14 @@
 import { test, expect } from '@playwright/test'
-import { ShoppingSite } from '../Pages/ShoppingSite'
+import { ShoppingSitePage } from '../Pages/MainPage'
 
 test.describe('Ecommerce Site', () => {
-  let shoppingSite: ShoppingSite
+  let shoppingSite: ShoppingSitePage
 
   test.beforeEach(async ({ page }) => {
-    shoppingSite = new ShoppingSite(page)
+    shoppingSite = new ShoppingSitePage(page)
     await shoppingSite.navigateToSite()
   })
 
-  
   test('Checking specific stock levels for all sizes', async ({ page }) => {
     const expectedStockLevels = {
       XS: 1,
@@ -50,7 +49,7 @@ test.describe('Ecommerce Site', () => {
       await shoppingSite.clickAddToCart(1)
     })
     await test.step('Removing the item from cart', async () => {
-      await shoppingSite.ClickRemoveItem(0)
+      await shoppingSite.clickRemoveItem(0)
     })
     await test.step('Expecting the cart to be empty', async () => {
       const subtotal = await shoppingSite.getCartAmount()
@@ -101,8 +100,8 @@ test.describe('Ecommerce Site', () => {
         await page.waitForTimeout(1000)
 
         await dialog.accept()
-        
-        await dialog.dismiss();
+
+        await dialog.dismiss()
       })
     })
   })
