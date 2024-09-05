@@ -7,6 +7,7 @@ test.describe('Ecommerce Site', () => {
   test.beforeEach(async ({ page }) => {
     shoppingSite = new ShoppingSitePage(page)
     await shoppingSite.navigateToSite()
+    console.log("Logged in as "+ process.env.USERNAME)
   })
 
   test('Verify stock levels are displayed correctly for each size filter', async ({
