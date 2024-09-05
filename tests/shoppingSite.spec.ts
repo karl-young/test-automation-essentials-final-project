@@ -22,8 +22,8 @@ test.describe('Ecommerce Site', () => {
       XXL: 4,
     }
     for (const [size, expectedStock] of Object.entries(expectedStockLevels)) {
-      await test.step(`Given the customer has navigated to the site`, async () => {})
-      await test.step('When the customer selects a size filter to view available shirt models.', async () => {
+      
+      await test.step('Given the customer has navigated to the site, when the customer selects a size filter to view available shirt models.', async () => {
         await shoppingSite.selectSize(size)
       })
       await test.step(`Then the stock level for the "${size}" size should be ${expectedStock}.`, async () => {
