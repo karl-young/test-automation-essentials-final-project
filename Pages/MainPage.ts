@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test'
-const baseURL = process.env.BASE_URL
+const baseURL = process.env.BASE_URL 
+
 export class ShoppingSitePage {
   readonly page: Page
   readonly addToCart: Locator

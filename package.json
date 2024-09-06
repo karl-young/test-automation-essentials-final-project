@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "env:test": "NODE_EN=testing npx playwright test",
-    "env:dev": "NODE_EN=development npx playwright test"
+    "env:test": "NODE_ENV=testing npx playwright test",
+    "env:dev": "NODE_ENV=development npx playwright test"
   },
   "keywords": [],
   "author": "",
