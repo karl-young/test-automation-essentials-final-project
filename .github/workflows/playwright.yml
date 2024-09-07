@@ -1,8 +1,10 @@
 name: Run Test Environment
 
-on: [push, pull_request, schedule]
-schedule:
-  - cron: 0 6 * * * # 6 AM UTC
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * *'  # 6 AM UTC
 
 jobs:
   tests_e2e:
