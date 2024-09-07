@@ -98,7 +98,7 @@ test.describe('Ecommerce Site', () => {
     await test.step('Then the checkout dialog should display the correct subtotal', async () => {
       const cartTotal = await shoppingSite.getCartAmount()
       page.on('dialog', async (dialog) => {
-        console.log('Dialog appeared with message:', dialog.message())
+        //console.log('Dialog appeared with message:', dialog.message())
 
         expect(dialog.message()).toBe(`Checkout - subtotal: ${cartTotal}`)
         await page.waitForTimeout(1000)

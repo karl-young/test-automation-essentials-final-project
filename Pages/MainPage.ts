@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test'
-const baseURL = process.env.BASE_URL 
+const baseURL = process.env.BASE_URL || "https://react-shopping-cart-67954.firebaseapp.com/"
 
 export class ShoppingSitePage {
   readonly page: Page
@@ -34,7 +34,7 @@ export class ShoppingSitePage {
 
   async selectSize(size: string) {
     await this.page.waitForSelector(`text=${size}`, { state: 'visible' })
-
+    
     await this.page.waitForTimeout(500)
 
     const sizeLocator = this.sizeLocator(size)
