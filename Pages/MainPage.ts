@@ -33,15 +33,14 @@ export class ShoppingSitePage {
   }
 
   async selectSize(size: string) {
+    const sizeLocator = this.sizeLocator(size)
     await this.page.waitForSelector(`text=${size}`, { state: 'visible' })
     
-    await this.page.waitForTimeout(500)
-
-    const sizeLocator = this.sizeLocator(size)
+    await this.page.waitForTimeout(600)
 
     await sizeLocator.click()
 
-    await this.page.waitForTimeout(500)
+    await this.page.waitForTimeout(600)
 
     await sizeLocator.click()
   }
