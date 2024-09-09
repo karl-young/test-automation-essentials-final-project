@@ -1,16 +1,15 @@
-name: Run Test Environment
+name: Run API Mocking Tests
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 6 AM UTC
+    - cron: '0 21 * * 5'  # 9 PM UTC on Fridays
   push:
   pull_request:
 
 jobs:
-  tests_e2e:
-    name: Run end-to-end tests
+  api_mocking_tests:
+    name: Run API mocking tests
     runs-on: ubuntu-latest
-    if: github.event.schedule.cron == '0 6 * * *'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,17 +17,16 @@ jobs:
           node-version: "20"
       - name: Install dependencies
         run: npm ci
-      - name: install playwright browsers
+      - name: Install Playwright browsers
         run: npx playwright install --with-deps
-      - name: Run tests
+      - name: Run API mocking tests
         run: npm run env:test
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-report-api-mocking
           path: playwright-report
           retention-days: 30
-
       - name: Deploy report to GitHub Pages
         if: success()
         env:
