@@ -21,7 +21,7 @@ test.describe('Shopping API Mock', () => {
     });
   });
   
-  test.fixme("Gets real response from API and adds some mock data.", async ({ page }) => {
+  test("Gets real response from API and adds some mock data.", async ({ page }) => {
 
     await page.route('**/products.json', async route => {
       // fetch the original response
