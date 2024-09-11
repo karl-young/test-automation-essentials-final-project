@@ -9,7 +9,7 @@
     "env:dev": "NODE_ENV=development npx playwright test"
   },
   "keywords": [],
-  "author": "",
+  "author": "Karl Young",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.46.1",
