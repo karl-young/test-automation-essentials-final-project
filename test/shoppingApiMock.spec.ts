@@ -12,6 +12,7 @@ test.describe('Shopping API Mock', () => {
       });
     });
     
+     
     await test.step('Visit the site', async () => {
       await page.goto(`${baseURL}/products.json`);
     });

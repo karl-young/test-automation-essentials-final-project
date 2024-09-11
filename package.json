@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "env:test": "NODE_ENV=testing npx playwright test",
+    "env:test": "NODE_ENV=testing npx playwright test --match *shoppingSite.spec.ts,*apiTests.spec.ts",
+    "api:mock": "NODE_ENV=testing npx playwright test shoppingApiMock.spec.ts",
     "env:dev": "NODE_ENV=development npx playwright test"
   },
   "keywords": [],
