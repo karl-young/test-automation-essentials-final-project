@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test'
-const baseURL = process.env.BASE_URL || "https://react-shopping-cart-67954.firebaseapp.com/"
+const baseURL = process.env.BASE_URL 
 
 export class ShoppingSitePage {
   readonly page: Page
