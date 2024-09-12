@@ -1,5 +1,7 @@
 import { Locator, Page } from '@playwright/test'
-const baseURL = 'https://react-shopping-cart-67954.firebaseapp.com/'
+const baseURL =
+  process.env.BASE_URL || 'https://react-shopping-cart-67954.firebaseapp.com/'
+
 export class ShoppingSitePage {
   readonly page: Page
   readonly addToCart: Locator
@@ -32,15 +34,14 @@ export class ShoppingSitePage {
   }
 
   async selectSize(size: string) {
+    const sizeLocator = this.sizeLocator(size)
     await this.page.waitForSelector(`text=${size}`, { state: 'visible' })
 
-    await this.page.waitForTimeout(500)
-
-    const sizeLocator = this.sizeLocator(size)
+    await this.page.waitForTimeout(600)
 
     await sizeLocator.click()
 
-    await this.page.waitForTimeout(500)
+    await this.page.waitForTimeout(600)
 
     await sizeLocator.click()
   }

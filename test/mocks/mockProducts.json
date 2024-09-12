@@ -1,0 +1,14 @@
+
+{
+    "availableSizes": ["X", "ML"],
+    "currencyFormat": "$",
+    "currencyId": "NZD",
+    "description": "Mock data",
+    "id": 200,
+    "installments": 2,
+    "isFreeShipping": true,
+    "price": 15.52,
+    "sku": 39876704341265610,
+    "style": "Mock",
+    "title": "White T-shirt With Cactus Print"
+}

@@ -1,0 +1,43 @@
+name: Run API Mocking Tests
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 21 * * 5'  # Runs every Friday at 9 PM UTC
+
+jobs:
+  api_mocking_tests:
+    name: Run API mocking tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run API mocking tests
+        run: npm run api:mock
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-api-mocking
+          path: playwright-report
+          retention-days: 30
+      - name: Deploy report to GitHub Pages
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git clone --branch=gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/karl-young/test-automation-essentials-final-project gh-pages || exit 0
+          mkdir -p gh-pages/api-mocking-report
+          cp -r playwright-report/* gh-pages/api-mocking-report/
+          cd gh-pages
+          git add .
+          git commit -m "Update API Mocking Playwright report"
+          git push origin gh-pages

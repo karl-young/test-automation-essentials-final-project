@@ -3,12 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "env:test": "NODE_ENV=testing npx playwright test shoppingSite.spec.ts",
+    "api:mock": "NODE_ENV=testing npx playwright test shoppingApiMock.spec.ts",
+    "env:dev": "NODE_ENV=development npx playwright test"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Karl Young",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.46.1",
     "@types/node": "^22.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
