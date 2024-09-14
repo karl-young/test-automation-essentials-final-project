@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { TMMainPage } from '../Pages/TMMainPage'
+import exp from 'constants'
 
 test.describe('Tests Trademe car makes', () => {
   let tmMainPage: TMMainPage
@@ -19,7 +20,9 @@ test.describe('Tests Trademe car makes', () => {
 
     for (const [make, expectedRange] of Object.entries(expectedMakes)) {
       await test.step(`Given the customer has selected the make "${make}"`, async () => {
-        await tmMainPage.selectMake(make)
+        await expect(async () => {
+          await tmMainPage.selectMake(make)
+        }).toPass()
       })
       await tmMainPage.clickViewListings()
       

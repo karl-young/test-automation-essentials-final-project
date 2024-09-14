@@ -6,8 +6,8 @@
   "scripts": {
     "env:test": "NODE_ENV=testing npx playwright test shoppingSite.spec.ts",
     "api:mock": "NODE_ENV=testing npx playwright test shoppingApiMock.spec.ts",
-    "env:dev": "NODE_ENV=development npx playwright test",
-    "env:tm": "NODE_ENV=test npx playwright test TradeMe.spec.ts"
+    "env:tm": "NODE_ENV=test npx playwright test TradeMe.spec.ts",
+    "env:dev": "NODE_ENV=development npx playwright test"
   },
   "keywords": [],
   "author": "Karl Young",

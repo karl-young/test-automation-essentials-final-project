@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 6 * * *'  # Runs daily at 6 AM UTC
+    - cron: '0 8 * * *'  # Runs daily at 8 AM UTC
 
 jobs:
   tests_e2e:
@@ -19,7 +19,7 @@ jobs:
         run: npm ci
       - name: install playwright browsers
         run: npx playwright install --with-deps
-      - name: Run E2E tests
+      - name: Run TradeMe tests
         run: npm run env:tm
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
