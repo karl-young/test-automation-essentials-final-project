@@ -51,6 +51,7 @@ export class TMMainPage {
 
     await this.viewResults.waitFor({ state: 'visible'})
     await this.viewResults.click()
+    await this.page.waitForTimeout(1000)
   }
 
   async clickViewListings() {
