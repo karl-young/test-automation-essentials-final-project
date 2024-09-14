@@ -19,16 +19,16 @@ test.describe('Tests Trademe car makes', () => {
 
     for (const [make, expectedRange] of Object.entries(expectedMakes)) {
       await test.step(`Given the customer has selected the make "${make}"`, async () => {
-        await expect(async () => {
-          await tmMainPage.selectMake(make)
-        }).toPass()
+        await tmMainPage.selectMake(make)
       })
 
       await test.step(`Then the stock level for the "${make}" should be between ${expectedRange.min} and ${expectedRange.max}.`, async () => {
         const actualStock = await tmMainPage.getResultsCount()
         expect(actualStock).toBeGreaterThanOrEqual(expectedRange.min)
         expect(actualStock).toBeLessThanOrEqual(expectedRange.max)
-        console.log(`Expected: ${expectedRange.min} - ${expectedRange.max}, Received: ${actualStock}`);
+        console.log(
+          `Make: ${make}, Expected: ${expectedRange.min} - ${expectedRange.max}, Received: ${actualStock}`
+        )
       })
     }
   })
