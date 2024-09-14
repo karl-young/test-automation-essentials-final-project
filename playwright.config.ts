@@ -6,7 +6,6 @@ import dotenv from 'dotenv'
  * https://github.com/motdotla/dotenv
  */
 
-
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 /**
@@ -64,10 +63,10 @@ export default defineConfig({
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
     // },
-    {
-      name: 'Iphone 12',
-      use: { ...devices['iPhone 12'] },
-    },
+    // {
+    //   name: 'Iphone 12',
+    //   use: { ...devices['iPhone 12'] },
+    // },
 
     /* Test against branded browsers. */
     // {
