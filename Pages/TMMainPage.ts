@@ -43,6 +43,7 @@ export class TMMainPage {
   }
 
   async selectNextMake(make: string) {
+    await this.makeButton.isVisible()
     await this.makeButton.click()
     await this.filterMake(make).isVisible()
     await this.filterMake(make).click()
