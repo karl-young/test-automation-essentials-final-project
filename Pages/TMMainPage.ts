@@ -43,12 +43,15 @@ export class TMMainPage {
   }
 
   async selectNextMake(make: string) {
-    await this.makeButton.isVisible()
-    await this.makeButton.click()
-    await this.filterMake(make).isVisible()
-    await this.filterMake(make).click()
-    await this.viewResults.isVisible()
-    await this.viewResults.click()
+    await this.makeButton.waitFor({ state: 'visible' });
+    await this.makeButton.click();
+
+    const filterLocator = this.filterMake(make);
+    await filterLocator.waitFor({ state: 'visible' });
+    await filterLocator.click();
+
+    await this.viewResults.waitFor({ state: 'visible' });
+    await this.viewResults.click();
   }
 
   async clickViewListings() {
