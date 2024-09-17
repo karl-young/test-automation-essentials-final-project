@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 import { parseNumberWithCommas } from '../utils/utility'
 
-const TMbaseURL = process.env.TM_URL
+const TMbaseURL = process.env.TM_URL || 'https://www.trademe.co.nz/a/motors'
 
 export class TMMainPage {
   readonly page: Page
