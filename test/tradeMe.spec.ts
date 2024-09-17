@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { TMMainPage } from '../Pages/TMMainPage'
+import { TMMainPage } from '../Pages/tMMainPage'
 
 test.describe('Tests Trademe car makes', () => {
   let tmMainPage: TMMainPage
@@ -11,11 +11,11 @@ test.describe('Tests Trademe car makes', () => {
 
   test('verify the car makes are displayed correctly', async ({ page }) => {
     let expectedMakes = {
-      BMW: { min: 3189, max: 3289 }, // 3239 ± 50
-      Mazda: { min: 6171, max: 6371 }, // 6271 ± 100
-      Honda: { min: 3436, max: 3536 }, // 3486 ± 50
-      Ferrari: { min: 23, max: 63 }, // 43 ± 20
-    }
+      BMW: { min: 1292, max: 1392 }, // 1342 ± 50
+      Mazda: { min: 5925, max: 6125 }, // 6025 ± 100
+      Honda: { min: 3347, max: 3447 }, // 3397 ± 50
+      Ferrari: { min: 22, max: 62 }, // 42 ± 20
+    } 
 
     for (const [make, expectedRange] of Object.entries(expectedMakes)) {
       await test.step(`Given the customer has selected the make "${make}"`, async () => {
