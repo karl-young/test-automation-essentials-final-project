@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 import { parseNumberWithCommas } from '../utils/utility'
 
-const TMbaseURL = process.env.TM_URL || 'https://www.trademe.co.nz/a/motors'
+const TMbaseURL = process.env.TM_URL
 
 export class TMMainPage {
   readonly page: Page
@@ -50,6 +50,8 @@ export class TMMainPage {
 
     await this.viewResults.waitFor({ state: 'visible' })
     await this.viewResults.click()
+
+    await this.page.waitForTimeout(500)
   }
 
   async clickViewListings() {
