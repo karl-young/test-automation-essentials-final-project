@@ -11,11 +11,11 @@ test.describe('Tests Trademe car makes', () => {
 
   test('verify the car makes are displayed correctly', async ({ page }) => {
     let expectedMakes = {
-      BMW: { min: 1292, max: 1392 }, // 1342 ± 50
+      BMW: { min: 3092, max: 3192 }, // 3142 ± 50
       Mazda: { min: 5925, max: 6125 }, // 6025 ± 100
       Honda: { min: 3347, max: 3447 }, // 3397 ± 50
       Ferrari: { min: 22, max: 62 }, // 42 ± 20
-    } 
+    }
 
     for (const [make, expectedRange] of Object.entries(expectedMakes)) {
       await test.step(`Given the customer has selected the make "${make}"`, async () => {

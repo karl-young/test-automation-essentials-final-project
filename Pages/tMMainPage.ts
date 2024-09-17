@@ -42,7 +42,6 @@ export class TMMainPage {
   }
 
   async selectNextMake(make: string) {
-    await this.makeButton.waitFor({ state: 'visible' })
     await this.makeButton.click()
 
     const filterLocator = this.filterMake(make)
@@ -51,7 +50,6 @@ export class TMMainPage {
 
     await this.viewResults.waitFor({ state: 'visible' })
     await this.viewResults.click()
-    await this.page.waitForTimeout(1000)
   }
 
   async clickViewListings() {

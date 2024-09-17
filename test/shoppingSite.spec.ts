@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ShoppingSitePage } from '../Pages/MainPage'
+import { ShoppingSitePage } from '../Pages/mainPage'
 
 test.describe('Ecommerce Site', () => {
   let shoppingSite: ShoppingSitePage
