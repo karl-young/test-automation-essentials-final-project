@@ -12,6 +12,7 @@ export class TMMainPage {
   readonly filterMake: (make: string) => Locator
   readonly viewResults: Locator
 
+
   constructor(page: Page) {
     this.page = page
     this.makeDropdown = this.page.getByLabel('Make (optional) ')

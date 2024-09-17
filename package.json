@@ -7,7 +7,8 @@
     "env:test": "NODE_ENV=testing npx playwright test shoppingSite.spec.ts",
     "api:mock": "NODE_ENV=testing npx playwright test shoppingApiMock.spec.ts",
     "env:tm": "NODE_ENV=test npx playwright test TradeMe.spec.ts  --project=chromium",
-    "env:dev": "NODE_ENV=development npx playwright test"
+    "env:dev": "NODE_ENV=development npx playwright test",
+    "test:env": "ts-node test-env.ts"
   },
   "keywords": [],
   "author": "Karl Young",
@@ -17,6 +18,8 @@
     "@types/node": "^22.1.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "oauth-1.0a": "^2.2.6"
   }
 }
