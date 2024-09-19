@@ -6,13 +6,7 @@ import dotenv from 'dotenv'
  * https://github.com/motdotla/dotenv
  */
 
-const nodeEnv = process.env.NODE_ENV
-
-if (!nodeEnv) {
-  throw new Error('NODE_ENV is not defined')
-}
-
-dotenv.config({ path: `.env.${nodeEnv}` })
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 /**
  * See https://playwright.dev/docs/test-configuration.
