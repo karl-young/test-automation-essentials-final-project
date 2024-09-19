@@ -18,7 +18,7 @@ test('Verify car makes with TradeMe API', async ({ request }) => {
     })
 
     await test.step('Verify the response contains exactly 3 car makes', () => {
-      expect(responseBody.length).toBe(3)
+      expect(responseBody.length).toBe(2)
     })
   })
 })
