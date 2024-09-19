@@ -38,6 +38,7 @@ To run this project locally, follow these steps:
     ```bash
     npm run env:test
     ```
+    For running individual tests, execute the specific commands defined in the scripts section of package.json
 
 These commands will set up and run the project on your local machine.
 

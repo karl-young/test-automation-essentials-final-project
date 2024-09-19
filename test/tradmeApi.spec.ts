@@ -1,37 +1,24 @@
+
 import 'dotenv/config'
-import OAuth from 'oauth-1.0a'
-import crypto from 'crypto'
 import { test, expect } from '@playwright/test'
+import { TradeMeApi } from '../Pages/tradmeApi'
 
 test('Verify car makes with TradeMe API', async ({ request }) => {
   const trademeApiKey = process.env.TRADEME_API_KEY
   const trademeSecret = process.env.TRADEME_API_SECRET
+  
+  const trademeApi = new TradeMeApi(trademeApiKey, trademeSecret)
 
-  const oauth = new OAuth({
-    consumer: { key: trademeApiKey, secret: trademeSecret },
-    signature_method: 'HMAC-SHA1',
-    hash_function(base_string, key) {
-      return crypto.createHmac('sha1', key).update(base_string).digest('base64')
-    },
+  await test.step('Send request to TradeMe API', async () => {
+    const responseBody = await trademeApi.getCarMakes(request)
+    console.log(responseBody)
+    
+    await test.step('Verify the response is an array', () => {
+      expect(Array.isArray(responseBody)).toBe(true)
+    })
+
+    await test.step('Verify the response contains exactly 3 car makes', () => {
+      expect(responseBody.length).toBe(3)
+    })
   })
-
-  const requestData = {
-    url: 'https://api.tmsandbox.co.nz/v1/seo/motors/search.json?categoryId=268',
-    method: 'GET',
-  }
-
-  const oauthHeader = oauth.toHeader(oauth.authorize(requestData))
-
-  const response = await request.get(requestData.url, {
-    headers: {
-      ...oauthHeader,
-      'Content-Type': 'application/json',
-    },
-  })
-
-  const responseBody = await response.json()
-  console.log(responseBody)
-  expect(Array.isArray(responseBody)).toBe(true)
-  expect(responseBody.length).toBe(3)
-
 })
