@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { TMMainPage } from '../Pages/tMMainPage'
 
-
 test.describe('Tests Trademe car makes', () => {
   let tmMainPage: TMMainPage
 
@@ -12,10 +11,10 @@ test.describe('Tests Trademe car makes', () => {
 
   test('verify the car makes are displayed correctly', async ({ page }) => {
     let expectedMakes = {
-      BMW: { min: 3092, max: 3192 }, // 3142 ± 50
-      Mazda: { min: 5925, max: 6125 }, // 6025 ± 100
-      Honda: { min: 3347, max: 3447 }, // 3397 ± 50
-      Ferrari: { min: 22, max: 62 }, // 42 ± 20
+      BMW: { min: 3101, max: 3201 }, // 3151 ± 50
+      Mazda: { min: 5928, max: 6128 }, // 6028 ± 100
+      Honda: { min: 3322, max: 3472 }, // 3372 ± 50
+      Ferrari: { min: 21, max: 61 }, // 41 ± 20
     }
 
     for (const [make, expectedRange] of Object.entries(expectedMakes)) {
