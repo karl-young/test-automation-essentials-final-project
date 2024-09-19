@@ -5,9 +5,10 @@ on:
   pull_request:
   schedule:
     - cron: '0 20 * * *'  # Runs daily at 8 AM NZT
+
 jobs:
   tests_e2e:
-    name: Run trademe tests
+    name: Run Trademe tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,6 +20,9 @@ jobs:
       - name: install playwright browsers
         run: npx playwright install --with-deps
       - name: Run TradeMe tests
+        env:
+          TRADEME_API_KEY: ${{ secrets.TRADEME_API_KEY }}
+          TRADEME_API_SECRET: ${{ secrets.TRADEME_API_SECRET }}
         run: npm run env:tm
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
