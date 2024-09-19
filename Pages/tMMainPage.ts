@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test'
 import { parseNumberWithCommas } from '../utils/utility'
+import 'dotenv/config'
 
 const TMbaseURL = process.env.TM_URL || 'https://www.trademe.co.nz/a/motors'
 

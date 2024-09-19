@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test'
+import 'dotenv/config'
 
 const baseURL =
   process.env.BASE_URL || 'https://react-shopping-cart-67954.firebaseapp.com/'

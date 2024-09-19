@@ -9,7 +9,7 @@ test('Verify car makes with TradeMe API', async ({ request }) => {
   
   const trademeApi = new TradeMeApi(trademeApiKey, trademeSecret)
 
-  await test.step('Send request to TradeMe API', async () => {
+  await test.step('Send request to TradeMe API and verify response is an array of 3 car makes', async () => {
     const responseBody = await trademeApi.getCarMakes(request)
     console.log(responseBody)
     
