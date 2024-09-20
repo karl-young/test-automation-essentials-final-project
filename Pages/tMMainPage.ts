@@ -34,12 +34,12 @@ export class TMMainPage {
   }
 
   async selectMake(make: string) {
-    const isMakeDropdownVisible = await this.makeDropdown.isVisible();
+    const isMakeDropdownVisible = await this.makeDropdown.isVisible()
     if (isMakeDropdownVisible) {
-      await this.makeDropdown.selectOption({ label: make });
-      await this.clickViewListings();
+      await this.makeDropdown.selectOption({ label: make })
+      await this.clickViewListings()
     } else {
-      await this.selectNextMake(make);
+      await this.selectNextMake(make)
     }
   }
 
@@ -49,6 +49,8 @@ export class TMMainPage {
     const filterLocator = this.filterMake(make)
     await filterLocator.waitFor({ state: 'visible' })
     await filterLocator.click()
+
+    await this.page.waitForTimeout(600)
 
     await this.viewResults.waitFor({ state: 'visible' })
     await this.viewResults.click()
