@@ -34,11 +34,12 @@ export class TMMainPage {
   }
 
   async selectMake(make: string) {
-    if (await this.makeDropdown.isVisible()) {
-      await this.makeDropdown.selectOption({ label: make })
-      await this.clickViewListings()
+    const isMakeDropdownVisible = await this.makeDropdown.isVisible();
+    if (isMakeDropdownVisible) {
+      await this.makeDropdown.selectOption({ label: make });
+      await this.clickViewListings();
     } else {
-      await this.selectNextMake(make)
+      await this.selectNextMake(make);
     }
   }
 
@@ -52,7 +53,7 @@ export class TMMainPage {
     await this.viewResults.waitFor({ state: 'visible' })
     await this.viewResults.click()
 
-    await this.page.waitForTimeout(500)
+    await this.page.waitForTimeout(600)
   }
 
   async clickViewListings() {
