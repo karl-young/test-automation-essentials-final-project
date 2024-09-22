@@ -41,4 +41,4 @@ jobs:
           git pull origin gh-pages
           git add .
           git commit -m "Update E2E Playwright report"
-          git push origin gh-pages
+          for i in {1..5}; do git push origin gh-pages && break || sleep 30; done
