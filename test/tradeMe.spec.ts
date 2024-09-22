@@ -1,7 +1,14 @@
 import { test, expect } from '@playwright/test'
 import { TMMainPage } from '../Pages/tMMainPage'
 
-test.describe('Tests Trademe car makes', () => {
+const carMakes = [
+  { name: 'BMW', min: 3101, max: 3201 }, // 3151 ± 50
+  { name: 'Mazda', min: 5928, max: 6128 }, // 6028 ± 100
+  { name: 'Honda', min: 3322, max: 3472 }, // 3372 ± 50
+  { name: 'Ferrari', min: 21, max: 61 }, // 41 ± 20
+]
+
+test.describe('TradeMe car make tests', () => {
   let tmMainPage: TMMainPage
 
   test.beforeEach(async ({ page }) => {
@@ -9,27 +16,23 @@ test.describe('Tests Trademe car makes', () => {
     await tmMainPage.navigateToSite()
   })
 
-  test('verify the car makes are displayed correctly', async ({ page }) => {
-    let expectedMakes = {
-      BMW: { min: 3101, max: 3201 }, // 3151 ± 50
-      Mazda: { min: 5928, max: 6128 }, // 6028 ± 100
-      Honda: { min: 3322, max: 3472 }, // 3372 ± 50
-      Ferrari: { min: 21, max: 61 }, // 41 ± 20
-    }
-
-    for (const [make, expectedRange] of Object.entries(expectedMakes)) {
-      await test.step(`Given the customer has selected the make "${make}"`, async () => {
-        await tmMainPage.selectMake(make)
+  carMakes.forEach(({ name, min, max }) => {
+    test(`verify stock level for ${name} is between ${min} and ${max}`, async ({
+      page,
+    }) => {
+      
+      await test.step(`Given the customer has selected the make "${name}"`, async () => {
+        await tmMainPage.selectMake(name)
       })
 
-      await test.step(`Then the stock level for the "${make}" should be between ${expectedRange.min} and ${expectedRange.max}.`, async () => {
+      await test.step(`Then the stock level for "${name}" should be between ${min} and ${max}`, async () => {
         const actualStock = await tmMainPage.getResultsCount()
-        expect(actualStock).toBeGreaterThanOrEqual(expectedRange.min)
-        expect(actualStock).toBeLessThanOrEqual(expectedRange.max)
+        expect(actualStock).toBeGreaterThanOrEqual(min)
+        expect(actualStock).toBeLessThanOrEqual(max)
         console.log(
-          `Make: ${make}, Expected: ${expectedRange.min} - ${expectedRange.max}, Received: ${actualStock}`
+          `Make: ${name}, Expected: ${min} - ${max}, Received: ${actualStock}`
         )
       })
-    }
+    })
   })
 })
