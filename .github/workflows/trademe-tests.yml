@@ -44,4 +44,4 @@ jobs:
           git pull origin gh-pages
           git add .
           git commit -m "Update Trademe Playwright report"
-          for i in {1..5}; do git push origin gh-pages && break || sleep 30; done
+          for i in {1..5}; do git push origin gh-pages && break || sleep 10; done
