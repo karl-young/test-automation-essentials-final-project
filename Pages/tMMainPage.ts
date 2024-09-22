@@ -50,12 +50,8 @@ export class TMMainPage {
     await filterLocator.waitFor({ state: 'visible' })
     await filterLocator.click()
 
-    await this.page.waitForTimeout(600)
-
     await this.viewResults.waitFor({ state: 'visible' })
     await this.viewResults.click()
-
-    await this.page.waitForTimeout(600)
   }
 
   async clickViewListings() {

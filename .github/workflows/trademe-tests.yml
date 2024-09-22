@@ -40,7 +40,7 @@ jobs:
           git clone --branch=gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/karl-young/test-automation-essentials-final-project gh-pages || exit 0
           mkdir -p gh-pages/tm-report
           cp -r playwright-report/* gh-pages/tm-report/
-          cd gh-pages
+          cd gh-pages/tm-report
           git add .
           git commit -m "Update Trademe Playwright report"
           git push origin gh-pages
