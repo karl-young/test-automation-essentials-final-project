@@ -6,6 +6,7 @@ This project demonstrates my learnings in test automation, showcasing how I’ve
 
 - **End-to-End Tests Report**: [View End-to-End Tests Report](https://karl-young.github.io/test-automation-essentials-final-project/e2e-report/)
 - **API Mocking Tests Report**: [View API Mocking Tests Report](https://karl-young.github.io/test-automation-essentials-final-project/api-mocking-report/)
+- **TradeMe Tests Report**: [View TradeMe Tests Report](https://karl-young.github.io/test-automation-essentials-final-project/tm-report/)
 
 These links will direct you to the results of the respective tests.
 
@@ -37,6 +38,7 @@ To run this project locally, follow these steps:
     ```bash
     npm run env:test
     ```
+    For running individual tests, execute the specific commands defined in the scripts section of package.json
 
 These commands will set up and run the project on your local machine.
 

@@ -1,14 +1,14 @@
-name: Run API Mocking Tests
+name: Run Trademe Tests
 
 on:
   push:
   pull_request:
   schedule:
-    - cron: '0 9 * * 5'  # Runs at 9 PM NZT on Fridays
+    - cron: '0 20 * * *'  # Runs daily at 8 AM NZT
 
 jobs:
-  api_mocking_tests:
-    name: Run API mocking tests
+  tests_e2e:
+    name: Run Trademe tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,14 +17,17 @@ jobs:
           node-version: "20"
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright browsers
+      - name: install playwright browsers
         run: npx playwright install --with-deps
-      - name: Run API mocking tests
-        run: npm run api:mock
+      - name: Run TradeMe tests
+        env:
+          TRADEME_API_KEY: ${{ secrets.TRADEME_API_KEY }}
+          TRADEME_API_SECRET: ${{ secrets.TRADEME_API_SECRET }}
+        run: npm run env:tm
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-api-mocking
+          name: playwright-report-tm
           path: playwright-report
           retention-days: 30
       - name: Deploy report to GitHub Pages
@@ -35,10 +38,10 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git clone --branch=gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/karl-young/test-automation-essentials-final-project gh-pages || exit 0
-          mkdir -p gh-pages/api-mocking-report
-          cp -r playwright-report/* gh-pages/api-mocking-report/
-          cd gh-pages/api-mocking-report
+          mkdir -p gh-pages/tm-report
+          cp -r playwright-report/* gh-pages/tm-report/
+          cd gh-pages/tm-report
           git pull origin gh-pages
           git add .
-          git commit -m "Update API Mocking Playwright report"
+          git commit -m "Update Trademe Playwright report"
           for i in {1..5}; do git push origin gh-pages && break || sleep 10; done
