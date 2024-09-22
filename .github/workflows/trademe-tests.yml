@@ -41,6 +41,7 @@ jobs:
           mkdir -p gh-pages/tm-report
           cp -r playwright-report/* gh-pages/tm-report/
           cd gh-pages/tm-report
+          git pull origin gh-pages
           git add .
           git commit -m "Update Trademe Playwright report"
           git push origin gh-pages

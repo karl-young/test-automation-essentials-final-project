@@ -38,6 +38,7 @@ jobs:
           mkdir -p gh-pages/e2e-report
           cp -r playwright-report/* gh-pages/e2e-report/
           cd gh-pages/e2e-report
+          git pull origin gh-pages
           git add .
           git commit -m "Update E2E Playwright report"
           git push origin gh-pages
