@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test'
 import { TMMainPage } from '../Pages/tMMainPage'
 
+// This has to be up to date with trademe for the tests to work.
 const carMakes = [
-  { name: 'BMW', min: 3101, max: 3201 }, // 3151 ± 50
-  { name: 'Mazda', min: 5928, max: 6128 }, // 6028 ± 100
-  { name: 'Honda', min: 3322, max: 3472 }, // 3372 ± 50
+  { name: 'BMW', min: 3105, max: 3115 }, // 3105 ± 10
+  { name: 'Mazda', min: 5958, max: 6058 }, // 6008 ± 50
+  { name: 'Honda', min: 3319, max: 3329 }, // 3324 ± 5
   { name: 'Ferrari', min: 21, max: 61 }, // 41 ± 20
 ]
 
@@ -20,7 +21,6 @@ test.describe('TradeMe car make tests', () => {
     test(`verify stock level for ${name} is between ${min} and ${max}`, async ({
       page,
     }) => {
-      
       await test.step(`Given the customer has selected the make "${name}"`, async () => {
         await tmMainPage.selectMake(name)
       })
