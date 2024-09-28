@@ -7,32 +7,33 @@ test.describe('Ecommerce Site', () => {
   test.beforeEach(async ({ page }) => {
     shoppingSite = new ShoppingSitePage(page)
     await shoppingSite.navigateToSite()
-    console.log("Logged in as "+ process.env.USERNAME)
+    console.log('Logged in as ' + process.env.USERNAME)
   })
 
-  test('Verify stock levels are displayed correctly for each size filter', async ({
-    page,
-  }) => {
-    const expectedStockLevels = {
-      XS: 1,
-      S: 2,
-      M: 1,
-      ML: 2,
-      L: 10,
-      XL: 10,
-      XXL: 4,
-    }
-    for (const [size, expectedStock] of Object.entries(expectedStockLevels)) {
-      
-      await test.step('Given the customer has navigated to the site, when the customer selects a size filter to view available shirt models.', async () => {
+  const expectedStockLevels = {
+    XS: 1,
+    S: 2,
+    M: 1,
+    ML: 2,
+    L: 10,
+    XL: 10,
+    XXL: 4,
+  }
+
+  Object.entries(expectedStockLevels).forEach(([size, expectedStock]) => {
+    test(`Verify stock level for size ${size} is displayed correctly`, async ({
+      page,
+    }) => {
+      await test.step('Given the customer has navigated to the site and selects a size filter to view available shirt models', async () => {
         await shoppingSite.selectSize(size)
       })
+
       await test.step(`Then the stock level for the "${size}" size should be ${expectedStock}.`, async () => {
         const actualStock = await shoppingSite.getStockLevel()
         console.log(`The stock level of ${size} is ${actualStock}.`)
         expect(actualStock).toBe(expectedStock)
       })
-    }
+    })
   })
 
   test('Verify adding items to the cart works', async ({ page }) => {

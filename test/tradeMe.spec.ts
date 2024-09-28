@@ -3,10 +3,10 @@ import { TMMainPage } from '../Pages/tMMainPage'
 
 // This has to be up to date with trademe for the tests to work.
 const carMakes = [
-  { name: 'BMW', min: 3105, max: 3115 }, // 3105 ± 10
-  { name: 'Mazda', min: 5958, max: 6058 }, // 6008 ± 50
-  { name: 'Honda', min: 3319, max: 3329 }, // 3324 ± 5
-  { name: 'Ferrari', min: 21, max: 61 }, // 41 ± 20
+  { name: 'BMW', min: 3004, max: 3104 }, // 3054 ± 50
+  { name: 'Mazda', min: 5794, max: 5994 }, // 5894 ± 100
+  { name: 'Honda', min: 3199, max: 3299 }, // 3249 ± 50
+  { name: 'Ferrari', min: 32, max: 52 }, // 42 ± 10
 ]
 
 test.describe('TradeMe car make tests', () => {
